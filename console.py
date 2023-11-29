@@ -231,7 +231,7 @@ class HBNBCommand(cmd.Cmd):
         print_list = []
 
         if isinstance(storage, DBStorage):
-            all_objs = storage.all().items()
+            all_objs = storage.all(HBNBCommand.classes[args]).items()
         elif isinstance(storage, FileStorage):
             all_objs = storage._FileStorage__objects.items()
 
