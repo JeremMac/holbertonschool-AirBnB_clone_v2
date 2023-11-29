@@ -14,7 +14,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
-class DBStorage():
+class DBStorage:
     """
     This class manages storage of hbnb models in a database
     """
@@ -33,7 +33,7 @@ class DBStorage():
 
         db_url = f'mysql+mysqldb://{user}:{password}@{host}/{db}'
 
-        create_engine(db_url, pool_pre_ping=True)
+        self.__engine = create_engine(db_url, pool_pre_ping=True)
 
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
