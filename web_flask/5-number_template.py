@@ -38,7 +38,7 @@ def is_int(n):
     return f'{n} is a number'
 
 
-@app.route("/number_template/<int:n>", strict_slashes=False)
+@app.route(f"/number_template/<int:n>", strict_slashes=False)
 def display_html(n):
     return render_template("5-number.html", number=n)
 
