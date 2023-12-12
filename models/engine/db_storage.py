@@ -86,3 +86,6 @@ class DBStorage:
         # Thread-local session to avoid issues when multithreading
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)
+
+    def close(self):
+        self.__session.remove()
