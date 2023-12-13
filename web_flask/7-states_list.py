@@ -1,30 +1,32 @@
 #!/usr/bin/python3
-"""Web App with Flask"""
-
+""" Create server with default main page """
 from flask import Flask, render_template
 from models import storage
-from models.state import State
-from models.city import City
 
 app = Flask(__name__)
 
 
+@app.route("/", strict_slashes=False)
+def index():
+    """def index"""
+    return "Hello HBNB!"
+
+
 @app.teardown_appcontext
-def teardown(exception):
-    """Remove the current SQLAlchemy Session"""
+def afterRequest(self):
     storage.close()
 
 
-@app.route('/cities_by_states', strict_slashes=False)
-def cities_by_states():
-    """Display a HTML page with a list of all State objects in DBStorage."""
-    states = storage.all(State)
-    cities = storage.all(City)
+@app.route("/states_list", strict_slashes=False)
+def states_list():
+    """def states_list"""
+    from models.state import State
+    states = []
+    for state in storage.all(State).values():
+        states.append(state.to_dict())
 
-    return render_template("8-cities_by_states.html",
-                           cities=cities,
-                           states=states)
+    return render_template('7-states_list.html', states=states)
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
